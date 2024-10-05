@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -35,32 +37,98 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
+
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-
+    const born1500s = inventors.filter(item => item.year >= 1500 && item.year <= 1600);
+    // console.log(born1500s);
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
-
+    let getFullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    // console.log(getFullNames);
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-
+    let calculateBirth = inventors.sort((a, b) => a.year - b.year);
+    // console.table(calculateBirth);
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
-
+    let sumAge = inventors.reduce((sum, inventor) => {
+      return sum + (inventor.passed - inventor.year)
+    }, 0);
+    // console.log(sumAge);
     // 5. Sort the inventors by years lived
-
+    let displayOldest = inventors.sort((a, b) => {
+      a = a.passed - a.year;
+      b = b.passed - b.year;
+      return a - b;
+    });
+    // console.table(displayOldest);
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
-
+    // Code 6 works only in the console
+    // const container = document.querySelector(".mw-category");
+    // // We need to transform the nodelist into an array
+    // // const links = container.querySelectorAll("a");
+    // const links = Array.from(container.querySelectorAll("a"));
+    // const de = links
+    //   .map(lin => lin.textContent)
+    //   .filter(item => item.includes("de"));
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-
+    // MY SOLUTION
+    // console.log(people);
+    let arrayJoinedToString = people.join(",");
+    // console.log(arrayJoinedToString);
+    let removeWhitespaces = str => str.replace(/\s+/g, '');
+    let stringWithoutWhitespaces = removeWhitespaces(arrayJoinedToString);
+    // console.log(stringWithoutWhitespaces);
+    let allNamesArray = stringWithoutWhitespaces.split(",");
+    // console.log(allNamesArray);
+    let lastNames = [];
+    let j = 0
+    for (let i = 0; i < allNamesArray.length; i = i + 2) {
+      lastNames[j] = allNamesArray[i];
+      j++;
+    }
+    // console.log(lastNames);
+    let lastNamesSorted = lastNames.sort();
+    console.log(lastNamesSorted);
+    // TUTORIAL SOLUTION 
+    const alpha = people.sort((lastOne, nextOne) => {
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+    console.log(alpha);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    // MY INTERNETSEARCH SOLUTION
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+    const sortedArray = data.sort();
+    console.log(sortedArray);
+    const countDublicates = (arr) => {
+      const counts = {};
+      arr.forEach((value) => {
+        if (!counts[value]) {
+          counts[value] = 1;
+        } else {
+          counts[value]++;
+        }
+      });
+      return counts;
+    };
+    const result = countDublicates(sortedArray);
+    console.log(result);
+    // TUTORIAL SOLUTION
+    const transportation = data.reduce(function(object, item) {
+      if(!object[item]) {
+        object[item] = 0;
+      }
+      object[item]++;
+      return object;
+    }, {});
+    console.log(transportation);
   </script>
 </body>
+
 </html>
